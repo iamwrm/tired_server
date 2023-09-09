@@ -22,7 +22,7 @@ jobs:
       - name: install cargo zigbuild
         run: |
           curl -fsSL https://bun.sh/install | bash
-          source ~/.bashrc
+          export PATH="$HOME/.bun/bin:$PATH"
           bun install -g @oven/zig && which zig && zig version
           cargo install cargo-zigbuild
           cargo zigbuild --release --target x86_64-unknown-linux-gnu.2.17
