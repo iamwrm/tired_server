@@ -7,6 +7,7 @@ This program detects if your server has been idle for a certain amount of time a
 - systemstat is used to get the load average
 https://github.com/valpackett/systemstat
 - when the filter is triggered, the executor is called. You can run any bash scripts such as shutdown or reboot (sudo required), or send an API call using curl.
+- autostart with systemd (either root or user mode) is supported
 
 
 ## Config example

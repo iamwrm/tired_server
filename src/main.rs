@@ -26,4 +26,16 @@ fn main() {
         println!("name = {}", statement.read::<String, _>(0).unwrap());
         println!("age = {}", statement.read::<i64, _>(1).unwrap());
     }
+
+    // run bash commands
+    // redirect the stdout to this program
+    let cmd_string = "echo '123 from rust' ";
+    let cmd = std::process::Command::new("bash")
+        .arg("-c")
+        .arg(cmd_string)
+        .output()
+        .expect("failed to execute process");
+
+    println!("cmd: {}", cmd_string);
+    println!("stdout: {}", String::from_utf8_lossy(&cmd.stdout));
 }

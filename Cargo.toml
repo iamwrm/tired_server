@@ -8,3 +8,10 @@ edition = "2021"
 [dependencies]
 sqlite = "0.31.1"
 systemstat = "0.2.3"
+
+
+[profile.release]
+opt-level = "s"
+lto = true
+debug = false
+
