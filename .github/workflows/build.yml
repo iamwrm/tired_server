@@ -19,17 +19,21 @@ jobs:
           toolchain: stable
           components: rustfmt, clippy
 
-      - name: Run cargo build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release
+      - name: install cargo zigbuild
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          source ~/.bashrc
+          bun install -g @oven/zig && which zig && zig version
+          cargo install cargo-zigbuild
+          cargo zigbuild --release --target x86_64-unknown-linux-gnu.2.17
+
 
       - name: Check build size and compress
         run: |
-          ls -lh target/release/tired_server
+          export BIN_PATH=target/x86_64-unknown-linux-gnu/release/tired_server
+          ls -lah $BIN_PATH
           curl -fsSLO https://github.com/upx/upx/releases/download/v4.0.2/upx-4.0.2-amd64_linux.tar.xz
           tar -xf upx-4.0.2-amd64_linux.tar.xz
-          ./upx-4.0.2-amd64_linux/upx --ultra-brute target/release/tired_server
-          ls -lh target/release/tired_server
+          ./upx-4.0.2-amd64_linux/upx --ultra-brute $BIN_PATH
+          ls -lah $BIN_PATH
 
