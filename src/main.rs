@@ -1,6 +1,16 @@
-use systemstat::{saturating_sub_bytes, Platform, System};
+use systemstat::{Platform, System};
 
-fn main() {
+use tracing::{info, Level};
+use tracing_subscriber::FmtSubscriber;
+
+#[tokio::main]
+async fn main() {
+    let subscriber = FmtSubscriber::builder()
+        .with_max_level(Level::INFO)
+        .finish();
+
+    tracing::subscriber::set_global_default(subscriber).expect("setting default subscriber failed");
+
     let sys = System::new();
 
     match sys.load_average() {
@@ -36,6 +46,6 @@ fn main() {
         .output()
         .expect("failed to execute process");
 
-    println!("cmd: {}", cmd_string);
-    println!("stdout: {}", String::from_utf8_lossy(&cmd.stdout));
+    info!("cmd: {}", cmd_string);
+    println!("{}", String::from_utf8_lossy(&cmd.stdout));
 }

@@ -2,6 +2,10 @@
 
 This program detects if your server has been idle for a certain amount of time and shuts it down if it has.
 
+## Status
+
+Not implemented yet
+
 ## implementation
 
 - systemstat is used to get the load average
