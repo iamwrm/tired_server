@@ -19,6 +19,10 @@ jobs:
           toolchain: stable
           components: rustfmt, clippy
 
+      - name: test 
+        run: |
+          cargo test -- --nocapture
+
       - name: install cargo zigbuild
         run: |
           curl -fsSL https://bun.sh/install | bash
@@ -38,6 +42,6 @@ jobs:
           ls -lah $BIN_PATH
           echo "Checking GLIBC requirements"
           ldd $BIN_PATH || true
-          objdump -T $BIN_PATH | grep GLIBC | sed 's/.*GLIBC_\([.0-9]*\).*/\1/g' | sort -Vu
+          objdump -T $BIN_PATH | grep GLIBC | sed 's/.*GLIBC_\([.0-9]*\).*/\1/g' | sort -Vu || true
 
 

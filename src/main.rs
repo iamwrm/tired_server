@@ -1,3 +1,5 @@
+pub mod config;
+
 use systemstat::{Platform, System};
 
 use tracing::{info, Level};

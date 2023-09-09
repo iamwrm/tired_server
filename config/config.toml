@@ -1,0 +1,10 @@
+[trigger]
+
+record_interval = "60s"
+grace_period = "10min"
+threshold = "0.5"
+
+[executor]
+
+bash = "echo `system has been idle for 10 minutes`"
+
