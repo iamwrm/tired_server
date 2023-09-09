@@ -36,4 +36,8 @@ jobs:
           tar -xf upx-4.0.2-amd64_linux.tar.xz
           ./upx-4.0.2-amd64_linux/upx --ultra-brute $BIN_PATH
           ls -lah $BIN_PATH
+          echo "Checking GLIBC requirements"
+          ldd $BIN_PATH
+          objdump -T $BIN_PATH | grep GLIBC | sed 's/.*GLIBC_\([.0-9]*\).*/\1/g' | sort -Vu
+
 
